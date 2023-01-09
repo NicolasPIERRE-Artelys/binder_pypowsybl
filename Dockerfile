@@ -4,7 +4,7 @@ RUN pip install --no-cache --upgrade pip && \
     pip install --no-cache notebook jupyterlab
 
 # install dynawo dependencies:
-RUN apt-get install -y --no-install-recommands g++ unzip curl
+RUN apt-get install -y g++ unzip curl
 
 # create user with a home directory UID 1000 is defined by binder
 ARG NB_USER=dynawaltz
