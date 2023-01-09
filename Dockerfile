@@ -11,9 +11,9 @@ RUN apt-get install -y g++ unzip curl
 ARG NB_USER=dynawaltz
 ARG NB_UID=1000
 
+ENV DYNAWO_VER 1.3.2
 ENV USER ${NB_USER}
 ENV HOME /home/${NB_USER}
-
 RUN adduser --disabled-password \
     --gecos "Default user" \
     --uid ${NB_UID} \
@@ -25,9 +25,8 @@ RUN chown -R ${NB_UID} ${HOME}
 WORKDIR ${HOME}
 USER ${USER}
 # installing dynawo in /home/${USER}/dynawo folder
-RUN curl -sSL $(curl -s -L -X GET https://api.github.com/repos/dynawo/dynawo/releases/latest | grep "Dynawo_Linux" | grep url | cut -d '"' -f 4) -o Dynawo_Linux_latest.zip
+RUN curl -sSL https://github.com/dynawo/dynawo/releases/download/v${DYNAWO_VER}/Dynawo_Linux_centos7_v${DYNAWO_VER}.zip -o Dynawo_Linux_latest.zip
 RUN unzip Dynawo_Linux_latest.zip
-RUN mv dynawo /home/${USER}/dynawo
 # install pypowsybl
 RUN pip install pypowsybl
 # moving config to the right place (~/.itools/config.yml)
