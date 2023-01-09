@@ -32,3 +32,6 @@ RUN pip install pypowsybl
 # moving config to the right place (~/.itools/config.yml)
 RUN mkdir .itools
 RUN mv config.yaml .itools/config.yml
+
+RUN mkdir .jupyter
+RUN echo "c.NotebookApp.token = ''\nc.NotebookApp.password = ''" > .jupyter/jupyter_notebook_config.py
