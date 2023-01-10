@@ -11,7 +11,8 @@ RUN apt-get install -y g++ unzip curl
 ENV DYNAWO_VER=1.3.2
 ENV JUPYTER_ENABLE_LAB=yes
 
-# copy repo into the image and change rights
+# jovyan is the user created by the jupyter/base-notebook image
+# It will be used to launch the jupyter lab
 USER jovyan
 WORKDIR $HOME
 COPY . $HOME/
