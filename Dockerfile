@@ -16,7 +16,7 @@ ENV JUPYTER_ENABLE_LAB=yes
 USER jovyan
 WORKDIR $HOME
 # copy all the necessary data
-COPY dynawaltz config.yaml dynawaltz.ipynb $HOME/
+COPY dynawaltz config.yaml dynawaltz.ipynb dynaflow.ipynb $HOME/
 
 
 # installing dynawo in $HOME/dynawo folder
