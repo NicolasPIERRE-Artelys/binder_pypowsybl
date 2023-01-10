@@ -1,14 +1,14 @@
-# copy to ~/.itools/config.yaml
+# This file will replace all HOME_DIR_TEMPLATE with the correct home directory
+# without any ending /
 dynamic-simulation-default-parameters:
   startTime: 0
   stopTime: 30
 
 dynawaltz:
-  homeDir: /home/dynawaltz/dynawo # root directory of dynawo installation
+  homeDir: HOME_DIR_TEMPLATE/dynawo # root directory of dynawo installation
   debug: true
 
 dynawaltz-default-parameters:
-  # All the path's can be relative to the root directory
   parametersFile: ./dynawaltz/models.par
   network.parametersFile: ./dynawaltz/network.par
   network.parametersId: "1"
@@ -16,3 +16,15 @@ dynawaltz-default-parameters:
   solver.parametersFile: ./dynawaltz/solver.par
   solver.parametersId: "1"
 
+dynaflow:
+  homeDir: HOME_DIR_TEMPLATE/dynaflow-launcher
+  debug: true
+
+dynaflow-default-parameters:
+  svcRegulationOn: true
+
+load-flow-default-parameters:
+  voltageInitMode: DC_VALUES
+  transformerVoltageControlOn: false
+  specificCompatibility: true
+  noGeneratorReactiveLimits: true

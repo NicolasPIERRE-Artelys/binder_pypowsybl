@@ -15,14 +15,22 @@ ENV JUPYTER_ENABLE_LAB=yes
 # It will be used to launch the jupyter lab
 USER jovyan
 WORKDIR $HOME
-COPY . $HOME/
+# copy all the necessary data
+COPY dynawaltz config.yaml dynawaltz.ipynb $HOME/
 
 
 # installing dynawo in $HOME/dynawo folder
 RUN curl -sSL https://github.com/dynawo/dynawo/releases/download/v${DYNAWO_VER}/Dynawo_Linux_centos7_v${DYNAWO_VER}.zip -o Dynawo_Linux_latest.zip
 RUN unzip Dynawo_Linux_latest.zip
+
+# installing dynaflow-launcher in $HOME/dynaflow-launcher folder
+RUN curl -sSL https://github.com/dynawo/dynaflow-launcher/releases/download/v${DYNAWO_VER}/DynaFlowLauncher_Linux_v${DYNAWO_VER}.zip -o DynaflowLauncher_Linux_latest.zip
+RUN unzip DynaflowLauncher_Linux_latest.zip
+
 # install pypowsybl
-RUN pip install pypowsybl
-# moving config to the right place (~/.itools/config.yml)
+# RUN pip install pypowsybl
+# moving and templating config (~/.itools/config.yml)
 RUN mkdir .itools
-RUN mv config.yaml .itools/config.yml
+# we use bash substitution, dockerfile can't do that with ENV variables
+RUN export HOME_ESCAPED_SLASH=${HOME//\//\\\/} && \
+    sed s/HOME_DIR_TEMPLATE/$HOME_ESCAPED_SLASH/ config.yaml > .itools/config.yml
